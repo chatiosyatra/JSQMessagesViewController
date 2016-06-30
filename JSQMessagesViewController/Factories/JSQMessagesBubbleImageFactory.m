@@ -22,6 +22,7 @@
 #import "UIColor+JSQMessages.h"
 
 
+
 @interface JSQMessagesBubbleImageFactory ()
 
 @property (strong, nonatomic, readonly) UIImage *bubbleImage;
@@ -63,7 +64,7 @@
 
 - (instancetype)init
 {
-    return [self initWithBubbleImage:[UIImage jsq_bubbleCompactImage] capInsets:UIEdgeInsetsZero];
+    return [self initWithBubbleImage:[UIImage yt_single_bubble] capInsets:UIEdgeInsetsZero];
 }
 
 - (void)dealloc
@@ -120,6 +121,9 @@
 - (UIImage *)jsq_stretchableImageFromImage:(UIImage *)image withCapInsets:(UIEdgeInsets)capInsets
 {
     return [image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch];
+    
+    
+    
 }
 
 @end

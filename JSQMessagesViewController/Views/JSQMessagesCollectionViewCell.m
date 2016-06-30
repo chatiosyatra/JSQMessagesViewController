@@ -37,10 +37,13 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 @property (weak, nonatomic) IBOutlet UIView *messageBubbleContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *messageBubbleImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *documentIconView;
 @property (weak, nonatomic) IBOutlet JSQMessagesCellTextView *textView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UIView *avatarContainerView;
+
+@property (weak, nonatomic) IBOutlet JSQMessagesLabel *cellTimeLabel;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageBubbleContainerWidthConstraint;
 
@@ -55,6 +58,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContainerViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContainerViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *messageReceiptImageView;
 
 @property (assign, nonatomic) UIEdgeInsets textViewFrameInsets;
 
@@ -145,7 +149,13 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     _mediaView = nil;
 
     _avatarImageView = nil;
-
+    
+    
+    _cellBottomLabel=nil;
+    _cellTimeLabel=nil;
+    _documentSentFailedButton=nil;
+    _documentIconView=nil;
+    _messageReceiptImageView=nil;
     [_tapGestureRecognizer removeTarget:nil action:NULL];
     _tapGestureRecognizer = nil;
 }
@@ -196,7 +206,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
                   withConstant:customAttributes.cellTopLabelHeight];
 
     [self jsq_updateConstraint:self.messageBubbleTopLabelHeightConstraint
-                  withConstant:customAttributes.messageBubbleTopLabelHeight];
+                withConstant:customAttributes.messageBubbleTopLabelHeight];
 
     [self jsq_updateConstraint:self.cellBottomLabelHeightConstraint
                   withConstant:customAttributes.cellBottomLabelHeight];
@@ -318,6 +328,54 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     [self.messageBubbleContainerView addSubview:mediaView];
     [self.messageBubbleContainerView jsq_pinAllEdgesOfSubview:mediaView];
     _mediaView = mediaView;
+    
+//    [self.messageBubbleContainerView addSubview:self.cellTimeLabel];
+//    [self.messageBubbleContainerView addSubview:self.messageReceiptImageView];
+//    
+//    [self.messageBubbleContainerView bringSubviewToFront:self.cellTimeLabel];
+//    
+//    [self.cellTimeLabel removeConstraints:self.cellTimeLabel.constraints];
+//    
+//   
+//    
+//    [self.messageBubbleContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.cellTimeLabel
+//                                                          attribute:NSLayoutAttributeBottom
+//                                                          relatedBy:NSLayoutRelationLessThanOrEqual
+//                                                             toItem:mediaView
+//                                                          attribute:NSLayoutAttributeBottom
+//                                                         multiplier:1.0
+//                                                           constant:-8.0]];
+//    
+//    [self.messageBubbleContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.cellTimeLabel
+//                                                          attribute:NSLayoutAttributeTrailing
+//                                                          relatedBy:NSLayoutRelationLessThanOrEqual
+//                                                             toItem:mediaView
+//                                                          attribute:NSLayoutAttributeTrailing
+//                                                         multiplier:1.0
+//                                                           constant:-30.0]];
+//    
+//    
+//    if (self.messageReceiptImageView!=nil && mediaView !=nil) {
+//        [self.messageBubbleContainerView bringSubviewToFront:self.messageReceiptImageView];
+//         [self.messageReceiptImageView removeConstraints:self.messageReceiptImageView.constraints];
+//        [self.messageBubbleContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.messageReceiptImageView
+//                                                                                    attribute:NSLayoutAttributeBottom
+//                                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
+//                                                                                       toItem:mediaView
+//                                                                                    attribute:NSLayoutAttributeBottom
+//                                                                                   multiplier:1.0
+//                                                                                     constant:-8.0]];
+//        
+//        [self.messageBubbleContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.messageReceiptImageView
+//                                                                                    attribute:NSLayoutAttributeTrailing
+//                                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
+//                                                                                       toItem:mediaView
+//                                                                                    attribute:NSLayoutAttributeTrailing
+//                                                                                   multiplier:1.0
+//                                                                                     constant:-2.0]];
+//    }
+//    
+    
 
     //  because of cell re-use (and caching media views, if using built-in library media item)
     //  we may have dequeued a cell with a media view and add this one on top
@@ -325,7 +383,13 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         for (NSUInteger i = 0; i < self.messageBubbleContainerView.subviews.count; i++) {
             if (self.messageBubbleContainerView.subviews[i] != _mediaView) {
-                [self.messageBubbleContainerView.subviews[i] removeFromSuperview];
+                if (self.messageBubbleContainerView.subviews[i]!=_cellTimeLabel) {
+                    if (self.messageBubbleContainerView.subviews[i]!=_messageReceiptImageView) {
+                    [self.messageBubbleContainerView.subviews[i] removeFromSuperview];
+                    }
+                }
+                
+               
             }
         }
     });

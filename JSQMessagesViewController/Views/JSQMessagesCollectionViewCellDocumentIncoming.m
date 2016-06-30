@@ -16,20 +16,23 @@
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
-#import "JSQMessagesCollectionViewCellOutgoing.h"
+#import "JSQMessagesCollectionViewCellDocumentIncoming.h"
 
-@interface JSQMessagesCollectionViewCellOutgoing ()
+@interface JSQMessagesCollectionViewCellDocumentIncoming ()
 @end
-@implementation JSQMessagesCollectionViewCellOutgoing
+@implementation JSQMessagesCollectionViewCellDocumentIncoming
 
 #pragma mark - Overrides
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.messageBubbleTopLabel.textAlignment = NSTextAlignmentRight;
-    self.cellBottomLabel.textAlignment = NSTextAlignmentRight;
+    self.messageBubbleTopLabel.textAlignment = NSTextAlignmentLeft;
+    self.cellBottomLabel.textAlignment = NSTextAlignmentLeft;
     
     }
+
+
+
 
 @end

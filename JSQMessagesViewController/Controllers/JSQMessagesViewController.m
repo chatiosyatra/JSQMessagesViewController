@@ -26,6 +26,9 @@
 
 #import "JSQMessagesCollectionViewCellIncoming.h"
 #import "JSQMessagesCollectionViewCellOutgoing.h"
+#import "JSQMessagesCollectionViewCellDocumentIncoming.h"
+#import "JSQMessagesCollectionViewCellDocumentOutgoing.h"
+#import "JSQMessagesCollectionViewCellCentre.h"
 
 #import "JSQMessagesTypingIndicatorFooterView.h"
 #import "JSQMessagesLoadEarlierHeaderView.h"
@@ -40,6 +43,12 @@
 #import "UIColor+JSQMessages.h"
 #import "UIDevice+JSQMessages.h"
 #import "NSBundle+JSQMessages.h"
+
+
+#define ResourcePath(path)[[NSBundle mainBundle] pathForResource:path ofType:nil]
+
+#define ImageWithPath(path)[UIImage imageWithContentsOfFile:path]
+
 
 
 static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObservingContext;
@@ -119,9 +128,10 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)jsq_configureMessagesViewController
 {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = BGCOLOR;
 
     self.jsq_isObserving = NO;
+    
 
     self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
 
@@ -139,6 +149,9 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
     self.incomingCellIdentifier = [JSQMessagesCollectionViewCellIncoming cellReuseIdentifier];
     self.incomingMediaCellIdentifier = [JSQMessagesCollectionViewCellIncoming mediaCellReuseIdentifier];
+    self.documentCellIdentifierIncoming=[JSQMessagesCollectionViewCellDocumentIncoming cellReuseIdentifier];
+    self.documentCellIdentifierOutgoing=[JSQMessagesCollectionViewCellDocumentOutgoing cellReuseIdentifier];
+    self.centreCellIdentifier=[JSQMessagesCollectionViewCellCentre cellReuseIdentifier];
 
     // NOTE: let this behavior be opt-in for now
     // [JSQMessagesCollectionViewCell registerMenuAction:@selector(delete:)];
@@ -180,7 +193,13 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     _senderDisplayName = nil;
     _outgoingCellIdentifier = nil;
     _incomingCellIdentifier = nil;
-
+    
+    _outgoingCellIdentifier=nil;
+    _documentCellIdentifierIncoming=nil;
+    _documentCellIdentifierOutgoing=nil;
+    _centreCellIdentifier=nil;
+    _incomingMediaCellIdentifier=nil;
+    _widgetView=nil;
     [_keyboardController endListeningForKeyboard];
     _keyboardController = nil;
 }
@@ -414,6 +433,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     return nil;
 }
 
+
+
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didDeleteMessageAtIndexPath:(NSIndexPath *)indexPath
 {
     NSAssert(NO, @"ERROR: required method not implemented: %s", __PRETTY_FUNCTION__);
@@ -446,6 +467,14 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     return nil;
 }
 
+
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView timeTextForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSAssert(NO, @"ERROR: required method not implemented: %s", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+
 #pragma mark - Collection view data source
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -466,7 +495,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSString *messageSenderId = [messageItem senderId];
     NSParameterAssert(messageSenderId != nil);
 
-    BOOL isOutgoingMessage = [messageSenderId isEqualToString:self.senderId];
+    BOOL isOutgoingMessage = [messageItem isOutGoing];//[messageSenderId isEqualToString:self.senderId];
     BOOL isMediaMessage = [messageItem isMediaMessage];
 
     NSString *cellIdentifier = nil;
@@ -476,10 +505,22 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     else {
         cellIdentifier = isOutgoingMessage ? self.outgoingCellIdentifier : self.incomingCellIdentifier;
     }
+    
+    if ([messageItem isDocMessage]) {
+        cellIdentifier = isOutgoingMessage ?self.documentCellIdentifierOutgoing :self.documentCellIdentifierIncoming;
+        
+        
+    }
+    if ([messageItem isSystemMessage]) {
+        cellIdentifier = self.centreCellIdentifier;
+        
+        
+    }
+    
 
     JSQMessagesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.delegate = collectionView;
-
+    
     if (!isMediaMessage) {
         cell.textView.text = [messageItem text];
 
@@ -500,6 +541,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
         id<JSQMessageMediaData> messageMedia = [messageItem media];
         cell.mediaView = [messageMedia mediaView] ?: [messageMedia mediaPlaceholderView];
         NSParameterAssert(cell.mediaView != nil);
+        
+        
     }
 
     BOOL needsAvatar = YES;
@@ -527,25 +570,55 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
         }
     }
 
-    cell.cellTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellTopLabelAtIndexPath:indexPath];
+    
+    [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=nil;
+    cell.cellTimeLabel.attributedText=[collectionView.dataSource collectionView:collectionView  timeTextForItemAtIndexPath:indexPath];
+    cell.cellTopLabel.attributedText =[collectionView.dataSource collectionView:collectionView attributedTextForCellTopLabelAtIndexPath:indexPath];
+    
+  
+    
     cell.messageBubbleTopLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:indexPath];
     cell.cellBottomLabel.attributedText = [collectionView.dataSource collectionView:collectionView attributedTextForCellBottomLabelAtIndexPath:indexPath];
-
+    //NSLog([cell viewWithTag:569]);
     CGFloat bubbleTopLabelInset = (avatarImageDataSource != nil) ? 60.0f : 15.0f;
 
     if (isOutgoingMessage) {
         cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, bubbleTopLabelInset);
+      
+        
+        
+        
+        [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"white_single-2.png"));
+        if ([messageItem queuedForSending]) {
+             [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"Clock-48.png"));
+        }
+        
+        if (messageItem.isDelivered==YES) {
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"white_double-2.png"));
+        }
+        if (messageItem.isDisplayed==YES)
+        {
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"lime_double-2.png"));
+        }
+        
+        
+        
+         
+        
+        [cell.messageBubbleContainerView bringSubviewToFront:[cell messageReceiptImageView]];
+        [cell.messageBubbleContainerView bringSubviewToFront:[cell cellTimeLabel]];
+        
     }
     else {
         cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0f, bubbleTopLabelInset, 0.0f, 0.0f);
     }
 
-    cell.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+    cell.textView.dataDetectorTypes = UIDataDetectorTypeNone;
 
     cell.backgroundColor = [UIColor clearColor];
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
     cell.layer.shouldRasterize = YES;
-
+    
     return cell;
 }
 

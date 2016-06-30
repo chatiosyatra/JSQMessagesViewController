@@ -21,9 +21,11 @@
 #import "JSQMessagesCollectionViewFlowLayout.h"
 #import "JSQMessagesCollectionViewCellIncoming.h"
 #import "JSQMessagesCollectionViewCellOutgoing.h"
-
+#import "JSQMessagesCollectionViewCellDocumentOutgoing.h"
+#import "JSQMessagesCollectionViewCellDocumentIncoming.h"
 #import "JSQMessagesTypingIndicatorFooterView.h"
 #import "JSQMessagesLoadEarlierHeaderView.h"
+#import "JSQMessagesCollectionViewCellCentre.h"
 
 #import "UIColor+JSQMessages.h"
 
@@ -47,7 +49,7 @@
 {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = BGCOLOR;
     self.keyboardDismissMode = UIScrollViewKeyboardDismissModeNone;
     self.alwaysBounceVertical = YES;
     self.bounces = YES;
@@ -58,11 +60,20 @@
     [self registerNib:[JSQMessagesCollectionViewCellOutgoing nib]
           forCellWithReuseIdentifier:[JSQMessagesCollectionViewCellOutgoing cellReuseIdentifier]];
     
+    [self registerNib:[JSQMessagesCollectionViewCellDocumentIncoming nib]
+forCellWithReuseIdentifier:[JSQMessagesCollectionViewCellDocumentIncoming cellReuseIdentifier]];
+    [self registerNib:[JSQMessagesCollectionViewCellDocumentOutgoing nib]
+forCellWithReuseIdentifier:[JSQMessagesCollectionViewCellDocumentOutgoing cellReuseIdentifier]];
+    
     [self registerNib:[JSQMessagesCollectionViewCellIncoming nib]
           forCellWithReuseIdentifier:[JSQMessagesCollectionViewCellIncoming mediaCellReuseIdentifier]];
     
     [self registerNib:[JSQMessagesCollectionViewCellOutgoing nib]
           forCellWithReuseIdentifier:[JSQMessagesCollectionViewCellOutgoing mediaCellReuseIdentifier]];
+    
+    
+    [self registerNib:[JSQMessagesCollectionViewCellCentre nib]
+forCellWithReuseIdentifier:[JSQMessagesCollectionViewCellCentre cellReuseIdentifier]];
     
     [self registerNib:[JSQMessagesTypingIndicatorFooterView nib]
           forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
@@ -71,6 +82,7 @@
     [self registerNib:[JSQMessagesLoadEarlierHeaderView nib]
           forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
           withReuseIdentifier:[JSQMessagesLoadEarlierHeaderView headerReuseIdentifier]];
+    
 
     _typingIndicatorDisplaysOnLeft = YES;
     _typingIndicatorMessageBubbleColor = [UIColor jsq_messageBubbleLightGrayColor];
@@ -120,6 +132,7 @@
 
     headerView.loadButton.tintColor = self.loadEarlierMessagesHeaderTextColor;
     headerView.delegate = self;
+    headerView.loadButton.enabled=YES;
 
     return headerView;
 }

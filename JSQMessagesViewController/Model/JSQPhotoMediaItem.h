@@ -18,6 +18,10 @@
 
 #import "JSQMediaItem.h"
 
+
+
+
+
 /**
  *  The `JSQPhotoMediaItem` class is a concrete `JSQMediaItem` subclass that implements the `JSQMessageMediaData` protocol
  *  and represents a photo media message. An initialized `JSQPhotoMediaItem` object can be passed 
@@ -26,11 +30,12 @@
  */
 @interface JSQPhotoMediaItem : JSQMediaItem <JSQMessageMediaData, NSCoding, NSCopying>
 
+
 /**
  *  The image for the photo media item. The default value is `nil`.
  */
-@property (copy, nonatomic) UIImage *image;
-
+@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) NSString *imagePath;
 /**
  *  Initializes and returns a photo media item object having the given image.
  *
@@ -43,5 +48,11 @@
  *  Once the image has been retrieved, you can then set the image property.
  */
 - (instancetype)initWithImage:(UIImage *)image;
+@property (strong, nonatomic) NSString *imageUUID;
+-(void)downloadImage;
 
 @end
+
+
+
+

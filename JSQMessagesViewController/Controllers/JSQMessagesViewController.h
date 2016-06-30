@@ -31,7 +31,7 @@
  */
 @interface JSQMessagesViewController : UIViewController <JSQMessagesCollectionViewDataSource,
                                                          JSQMessagesCollectionViewDelegateFlowLayout,
-                                                         UITextViewDelegate>
+                                                         UITextViewDelegate,JSQMessagesKeyboardControllerDelegate>
 
 /**
  *  Returns the collection view object managed by this view controller.
@@ -92,7 +92,9 @@
  *  including `collectionView:cellForItemAtIndexPath:`.
  */
 @property (copy, nonatomic) NSString *outgoingCellIdentifier;
-
+@property (copy, nonatomic) NSString *documentCellIdentifierIncoming;
+@property (copy, nonatomic) NSString *documentCellIdentifierOutgoing;
+@property (copy, nonatomic) NSString *centreCellIdentifier;
 /**
  *  The collection view cell identifier to use for dequeuing outgoing message collection view cells
  *  in the collectionView for media messages.
@@ -171,6 +173,7 @@
  *  @discussion Use this property to adjust the top content inset to account for a custom subview at the top of your view controller.
  */
 @property (assign, nonatomic) CGFloat topContentAdditionalInset;
+@property (weak, nonatomic) IBOutlet UIView *widgetView;
 
 #pragma mark - Class methods
 

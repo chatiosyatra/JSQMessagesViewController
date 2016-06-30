@@ -76,4 +76,27 @@
  */
 + (UIImage *)jsq_defaultPlayImage;
 
+
+/**
+*   @return The yatra chat bubble images
+*/
+ 
++ (UIImage *)yt_first_bubble;
+/**
+ *   @return The yatra chat bubble images
+ */
++ (UIImage *)yt_middle_bubble;
+/**
+ *   @return The yatra chat bubble images
+ */
++ (UIImage *)yt_last_bubble;
+/**
+ *   @return The yatra chat bubble images
+ */
++ (UIImage *)yt_single_bubble;
+/**
+ *   @return The yatra chat system bubble image
+ */
++ (UIImage *)yt_system_bubble;
+
 @end

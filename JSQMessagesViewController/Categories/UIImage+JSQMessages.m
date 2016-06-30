@@ -55,6 +55,15 @@
     return [UIImage imageWithContentsOfFile:path];
 }
 
+
++ (UIImage *)ytchat_bubbleImageFromBundleWithName:(NSString *)name
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *path = [bundle pathForResource:name ofType:@"png"];
+    return [UIImage imageWithContentsOfFile:path];
+    
+}
+
 + (UIImage *)jsq_bubbleRegularImage
 {
     return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_regular"];
@@ -99,5 +108,31 @@
 {
     return [UIImage jsq_bubbleImageFromBundleWithName:@"play"];
 }
+
++ (UIImage *)yt_first_bubble
+{
+    return [UIImage ytchat_bubbleImageFromBundleWithName:@"img_chat_bubble_outgoing_first"];
+}
+
++ (UIImage *)yt_system_bubble
+{
+    return [UIImage ytchat_bubbleImageFromBundleWithName:@"bubble_System Message (1)"];//img_chat_bubble_system.9
+}
++ (UIImage *)yt_middle_bubble
+{
+    return [UIImage ytchat_bubbleImageFromBundleWithName:@"img_chat_bubble_outgoing_middle"];
+}
++ (UIImage *)yt_last_bubble
+{
+    return [UIImage ytchat_bubbleImageFromBundleWithName:@"img_chat_bubble_outgoing_last"];
+}
++ (UIImage *)yt_single_bubble
+{
+    return [UIImage ytchat_bubbleImageFromBundleWithName:@"bubble_blue (1)"];//img_chat_bubble_outgoing_single.9
+}
+
+
+
+
 
 @end

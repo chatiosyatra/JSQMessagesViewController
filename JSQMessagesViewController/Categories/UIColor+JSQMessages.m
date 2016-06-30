@@ -37,6 +37,10 @@
                       brightness:1.0f
                            alpha:1.0f];
 }
++ (UIColor *)jsq_messageBubbleLightBlueColor
+{
+    return [UIColor colorWithRed:145.0f/255.0f green:191.0f/255.0f blue:206.0f/255.0f alpha:1.0f];
+}
 
 + (UIColor *)jsq_messageBubbleRedColor
 {

@@ -95,6 +95,10 @@
                               atIndexPath:(NSIndexPath *)indexPath
                                withLayout:(JSQMessagesCollectionViewFlowLayout *)layout
 {
+    
+    layout.messageBubbleFont=[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
+    
+    
     NSValue *cachedSize = [self.cache objectForKey:@([messageData messageHash])];
     if (cachedSize != nil) {
         return [cachedSize CGSizeValue];
@@ -106,38 +110,58 @@
         finalSize = [[messageData media] mediaViewDisplaySize];
     }
     else {
-        CGSize avatarSize = [self jsq_avatarSizeForMessageData:messageData withLayout:layout];
+        CGSize avatarSize =CGSizeZero; //[self jsq_avatarSizeForMessageData:messageData withLayout:layout];
 
         //  from the cell xibs, there is a 2 point space between avatar and bubble
         CGFloat spacingBetweenAvatarAndBubble = 2.0f;
         CGFloat horizontalContainerInsets = layout.messageBubbleTextViewTextContainerInsets.left + layout.messageBubbleTextViewTextContainerInsets.right;
         CGFloat horizontalFrameInsets = layout.messageBubbleTextViewFrameInsets.left + layout.messageBubbleTextViewFrameInsets.right;
 
-        CGFloat horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets + spacingBetweenAvatarAndBubble;
-        CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
+        CGFloat horizontalInsetsTotal =horizontalContainerInsets + horizontalFrameInsets + spacingBetweenAvatarAndBubble;
+        CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] -avatarSize.width - layout.messageBubbleLeftRightMargin -  horizontalInsetsTotal;
+        
+        
 
         CGRect stringRect = [[messageData text] boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
                                                              options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                                          attributes:@{ NSFontAttributeName : layout.messageBubbleFont }
+                                                          attributes:@{ NSFontAttributeName :layout.messageBubbleFont  }
                                                              context:nil];
 
-        CGSize stringSize = CGRectIntegral(stringRect).size;
-
+        
+        CGRect timeRect = [@"12:00 PM" boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
+                                                             options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                                          attributes:@{ NSFontAttributeName : layout.messageBubbleFont }
+                                                             context:nil];
+    //ADJUSTMENT SUJITH
+        if ([messageData isSystemMessage]) {
+            timeRect=CGRectZero;
+        }
+        CGSize stringSize = timeRect.size.width>stringRect.size.width? CGRectIntegral(timeRect).size:CGRectIntegral(stringRect).size;
+        
+        if (stringRect.size.height>timeRect.size.height && timeRect.size.width>stringRect.size.width) {
+            stringSize=CGSizeMake(timeRect.size.width, stringRect.size.height);
+        }
+        
+///SUJITH
         CGFloat verticalContainerInsets = layout.messageBubbleTextViewTextContainerInsets.top + layout.messageBubbleTextViewTextContainerInsets.bottom;
         CGFloat verticalFrameInsets = layout.messageBubbleTextViewFrameInsets.top + layout.messageBubbleTextViewFrameInsets.bottom;
 
+        
+        
         //  add extra 2 points of space (`self.additionalInset`), because `boundingRectWithSize:` is slightly off
         //  not sure why. magix. (shrug) if you know, submit a PR
         CGFloat verticalInsets = verticalContainerInsets + verticalFrameInsets + self.additionalInset;
 
         //  same as above, an extra 2 points of magix
         CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
-
-        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
+        
+        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets+10);
+       
     }
 
     [self.cache setObject:[NSValue valueWithCGSize:finalSize] forKey:@([messageData messageHash])];
 
+    
     return finalSize;
 }
 

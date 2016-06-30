@@ -16,11 +16,11 @@
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
-#import "JSQMessagesCollectionViewCellOutgoing.h"
+#import "JSQMessagesCollectionViewCellDocumentOutgoing.h"
 
-@interface JSQMessagesCollectionViewCellOutgoing ()
+@interface JSQMessagesCollectionViewCellDocumentOutgoing ()
 @end
-@implementation JSQMessagesCollectionViewCellOutgoing
+@implementation JSQMessagesCollectionViewCellDocumentOutgoing
 
 #pragma mark - Overrides
 
@@ -31,5 +31,13 @@
     self.cellBottomLabel.textAlignment = NSTextAlignmentRight;
     
     }
+
+
+- (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
+{
+    [super applyLayoutAttributes:layoutAttributes];
+    
+    
+}
 
 @end

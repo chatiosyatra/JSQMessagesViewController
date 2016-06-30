@@ -109,13 +109,17 @@
  *  This label is most commonly used to display message delivery status.
  */
 @property (weak, nonatomic, readonly) JSQMessagesLabel *cellBottomLabel;
-
+@property (weak, nonatomic,readonly) JSQMessagesLabel *cellTimeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *documentSentFailedButton;
+@property (weak, nonatomic,readonly) UIImageView *documentIconView;
 /**
  *  Returns the text view of the cell. This text view contains the message body text.
  *
  *  @warning If mediaView returns a non-nil view, then this value will be `nil`.
  */
 @property (weak, nonatomic, readonly) JSQMessagesCellTextView *textView;
+@property (strong, nonatomic) IBOutlet UIImageView *toplabelBgView;
+
 
 /**
  *  Returns the bubble image view of the cell that is responsible for displaying message bubble images.
@@ -142,6 +146,7 @@
  */
 @property (weak, nonatomic, readonly) UIImageView *avatarImageView;
 
+
 /**
  *  Returns the avatar container view of the cell. This view is the superview of the cell's avatarImageView.
  *
@@ -160,7 +165,7 @@
  *  @warning If this value is non-nil, then textView and messageBubbleImageView will both be `nil`.
  */
 @property (weak, nonatomic) UIView *mediaView;
-
+@property (weak, nonatomic, readonly) UIImageView *messageReceiptImageView;
 /**
  *  Returns the underlying gesture recognizer for tap gestures in the avatarImageView of the cell.
  *  This gesture handles the tap event for the avatarImageView and notifies the cell's delegate.

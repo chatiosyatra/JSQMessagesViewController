@@ -151,5 +151,6 @@
  *  @see JSQMessagesCollectionViewCell.
  */
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath;
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView timeTextForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

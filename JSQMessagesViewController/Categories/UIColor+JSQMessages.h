@@ -19,7 +19,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIColor (JSQMessages)
-
+#define BGCOLOR [UIColor colorWithRed:255.0f/255.0f green:251.0f/255.0f blue:237/255.0f alpha:1]
 #pragma mark - Message bubble colors
 
 /**
@@ -30,6 +30,9 @@
 /**
  *  @return A color object containing HSB values similar to the iOS 7 messages app blue bubble color.
  */
++ (UIColor *)jsq_messageBubbleLightBlueColor;
+
+
 + (UIColor *)jsq_messageBubbleBlueColor;
 
 /**

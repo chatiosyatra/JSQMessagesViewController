@@ -20,10 +20,12 @@
 
 #import "JSQMessagesMediaPlaceholderView.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
+#import "UIColor+JSQMessages.h"
+//#import "XMPPMessageArchiving_Message_CoreDataObject.h"
 
 
 @interface JSQPhotoMediaItem ()
-
+//@property (nonatomic, strong) XMPPMessageArchiving_Message_CoreDataObject *msg;
 @property (strong, nonatomic) UIImageView *cachedImageView;
 
 @end
@@ -79,12 +81,24 @@
     
     if (self.cachedImageView == nil) {
         CGSize size = [self mediaViewDisplaySize];
+        UIImageView *view =[[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-        imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+        imageView.frame = CGRectMake(15.0f, 18.0f, size.width-35, size.height-40);
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
-        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
-        self.cachedImageView = imageView;
+        //[JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+        [view addSubview:imageView];
+        if(!self.appliesMediaViewMaskAsOutgoing)
+        {
+        view.backgroundColor=[UIColor jsq_messageBubbleLightGrayColor];
+        }
+        else
+        {
+           view.backgroundColor=[UIColor jsq_messageBubbleLightBlueColor];
+        }
+        
+        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:view isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+        self.cachedImageView = view;
     }
     
     return self.cachedImageView;
@@ -133,5 +147,8 @@
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
 }
+
+
+
 
 @end
