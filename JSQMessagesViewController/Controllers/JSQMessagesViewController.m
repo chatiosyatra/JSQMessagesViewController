@@ -573,6 +573,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
     [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=nil;
     cell.cellTimeLabel.attributedText=[collectionView.dataSource collectionView:collectionView  timeTextForItemAtIndexPath:indexPath];
+    
+    
     cell.cellTopLabel.attributedText =[collectionView.dataSource collectionView:collectionView attributedTextForCellTopLabelAtIndexPath:indexPath];
     
   
@@ -588,9 +590,13 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
         
         
         
-        [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"white_single-2.png"));
+        
         if ([messageItem queuedForSending]) {
              [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"Clock-48.png"));
+        }
+        else
+        {
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"white_single-2.png"));
         }
         
         if (messageItem.isDelivered==YES) {

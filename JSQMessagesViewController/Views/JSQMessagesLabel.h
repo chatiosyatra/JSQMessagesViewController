@@ -33,3 +33,7 @@
 @property (assign, nonatomic) UIEdgeInsets textInsets;
 
 @end
+
+@interface MyLabel : UILabel
+
+@end

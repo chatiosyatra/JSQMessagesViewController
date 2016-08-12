@@ -96,7 +96,7 @@
  *  Returns the label that is pinned to the top of the cell.
  *  This label is most commonly used to display message timestamps.
  */
-@property (weak, nonatomic, readonly) JSQMessagesLabel *cellTopLabel;
+@property (weak, nonatomic, readonly) MyLabel *cellTopLabel;
 
 /**
  *  Returns the label that is pinned just above the messageBubbleImageView, and below the cellTopLabel.

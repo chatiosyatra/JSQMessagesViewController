@@ -31,7 +31,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 @interface JSQMessagesCollectionViewCell ()
 
-@property (weak, nonatomic) IBOutlet JSQMessagesLabel *cellTopLabel;
+@property (weak, nonatomic) IBOutlet MyLabel *cellTopLabel;
 @property (weak, nonatomic) IBOutlet JSQMessagesLabel *messageBubbleTopLabel;
 @property (weak, nonatomic) IBOutlet JSQMessagesLabel *cellBottomLabel;
 
@@ -123,6 +123,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
     self.cellTopLabel.textAlignment = NSTextAlignmentCenter;
     self.cellTopLabel.font = [UIFont boldSystemFontOfSize:12.0f];
+    self.cellTopLabel.layer.cornerRadius=40;
     self.cellTopLabel.textColor = [UIColor lightGrayColor];
 
     self.messageBubbleTopLabel.font = [UIFont systemFontOfSize:12.0f];
@@ -328,6 +329,8 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     [self.messageBubbleContainerView addSubview:mediaView];
     [self.messageBubbleContainerView jsq_pinAllEdgesOfSubview:mediaView];
     _mediaView = mediaView;
+    
+    [self.messageBubbleContainerView bringSubviewToFront:_cellTimeLabel];
     
 //    [self.messageBubbleContainerView addSubview:self.cellTimeLabel];
 //    [self.messageBubbleContainerView addSubview:self.messageReceiptImageView];

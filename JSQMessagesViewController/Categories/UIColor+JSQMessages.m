@@ -39,7 +39,22 @@
 }
 + (UIColor *)jsq_messageBubbleLightBlueColor
 {
-    return [UIColor colorWithRed:145.0f/255.0f green:191.0f/255.0f blue:206.0f/255.0f alpha:1.0f];
+    return [UIColor colorWithRed:113.0f/255.0f green:196.0f/255.0f blue:209.0f/255.0f alpha:1.0f];
+}
+
+
++ (UIColor *)jsq_systemmessageBGColor
+{
+    return [UIColor colorWithRed:254.0f/255.0f green:239.0f/255.0f blue:224.0f/255.0f alpha:1.0f];
+}
+
++(UIColor*)jsq_systemmessageTextColor
+{
+    return [UIColor colorWithRed:190.0f/255.0f green:128.0f/255.0f blue:72.0f/255.0f alpha:1.0f];
+}
++(UIColor*)jsq_dateLabelBGColor
+{
+    return [UIColor colorWithRed:189.0f/255.0f green:233.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
 }
 
 + (UIColor *)jsq_messageBubbleRedColor

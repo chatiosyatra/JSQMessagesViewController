@@ -45,6 +45,14 @@
  */
 + (UIColor *)jsq_messageBubbleLightGrayColor;
 
+
++ (UIColor *)jsq_systemmessageBGColor;
+
+
++(UIColor*)jsq_systemmessageTextColor;
+
++(UIColor*)jsq_dateLabelBGColor;
+
 #pragma mark - Utilities
 
 /**

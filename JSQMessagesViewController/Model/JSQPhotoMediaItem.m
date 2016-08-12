@@ -80,22 +80,35 @@
     }
     
     if (self.cachedImageView == nil) {
+        
+        if(!self.appliesMediaViewMaskAsOutgoing)
+        {
+            
+        }
+        
         CGSize size = [self mediaViewDisplaySize];
         UIImageView *view =[[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-        imageView.frame = CGRectMake(15.0f, 18.0f, size.width-35, size.height-40);
+        
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
         //[JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
-        [view addSubview:imageView];
+        
         if(!self.appliesMediaViewMaskAsOutgoing)
         {
         view.backgroundColor=[UIColor jsq_messageBubbleLightGrayColor];
+           
+            imageView.frame = CGRectMake(20.0f, 18.0f, size.width-35, size.height-40);
         }
         else
         {
            view.backgroundColor=[UIColor jsq_messageBubbleLightBlueColor];
+             imageView.frame = CGRectMake(15.0f, 18.0f, size.width-35, size.height-40);
+            
         }
+        [view addSubview:imageView];
+        
+        
         
         [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:view isOutgoing:self.appliesMediaViewMaskAsOutgoing];
         self.cachedImageView = view;
