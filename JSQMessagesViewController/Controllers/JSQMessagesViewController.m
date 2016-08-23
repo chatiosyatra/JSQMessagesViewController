@@ -127,8 +127,13 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 #pragma mark - Initialization
 
 - (void)jsq_configureMessagesViewController
-{
-    self.view.backgroundColor = BGCOLOR;
+{   NSString *path = [[NSBundle mainBundle] pathForResource:@"chat_plist" ofType:@"plist"];
+    
+    NSDictionary *myPropertiesDict = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
+    PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
+    self.view.backgroundColor = UIColorFromRGBA([PropertiesDict[@"BGColor"] integerValue], 1.0);
+   // self.view.backgroundColor = BGCOLOR;
 
     self.jsq_isObserving = NO;
     

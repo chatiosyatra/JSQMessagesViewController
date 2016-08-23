@@ -20,6 +20,10 @@
 
 @interface UIColor (JSQMessages)
 #define BGCOLOR [UIColor colorWithRed:255.0f/255.0f green:251.0f/255.0f blue:237/255.0f alpha:1]
+#define UIColorFromRGBA(rgbValue, alphaValue) ([UIColor colorWithRed:((CGFloat)((rgbValue & 0xFF0000) >> 16)) / 255.0 \
+green:((CGFloat)((rgbValue & 0xFF00) >> 8)) / 255.0 \
+blue:((CGFloat)(rgbValue & 0xFF)) / 255.0 \
+alpha:alphaValue])
 #pragma mark - Message bubble colors
 
 /**
@@ -52,6 +56,9 @@
 +(UIColor*)jsq_systemmessageTextColor;
 
 +(UIColor*)jsq_dateLabelBGColor;
++(UIColor*)jsq_recievedMessageBGColor;
+
++(UIColor*)jsq_sendMessageBGColor;
 
 #pragma mark - Utilities
 

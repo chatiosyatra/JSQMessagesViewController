@@ -17,7 +17,10 @@
 //
 
 #import "UIColor+JSQMessages.h"
-
+#define UIColorFromRGBA(rgbValue, alphaValue) ([UIColor colorWithRed:((CGFloat)((rgbValue & 0xFF0000) >> 16)) / 255.0 \
+green:((CGFloat)((rgbValue & 0xFF00) >> 8)) / 255.0 \
+blue:((CGFloat)(rgbValue & 0xFF)) / 255.0 \
+alpha:alphaValue])
 @implementation UIColor (JSQMessages)
 
 #pragma mark - Message bubble colors
@@ -71,6 +74,28 @@
                       saturation:0.02f
                       brightness:0.92f
                            alpha:1.0f];
+}
++(UIColor *)jsq_recievedMessageBGColor
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chat_plist" ofType:@"plist"];
+    
+    NSDictionary *myPropertiesDict = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
+    PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
+    return UIColorFromRGBA([PropertiesDict[@"ChatBubbleReceiver"] integerValue], 1.0);
+
+
+}
++(UIColor *)jsq_sendMessageBGColor
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chat_plist" ofType:@"plist"];
+    
+    NSDictionary *myPropertiesDict = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
+    PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
+    return UIColorFromRGBA([PropertiesDict[@"ChatBubbleSender"] integerValue], 1.0);
+    
+    
 }
 
 #pragma mark - Utilities

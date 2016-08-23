@@ -48,8 +48,13 @@
 - (void)jsq_configureCollectionView
 {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-
-    self.backgroundColor = BGCOLOR;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chat_plist" ofType:@"plist"];
+    
+    NSDictionary *myPropertiesDict = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
+    PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
+    self.backgroundColor = UIColorFromRGBA([PropertiesDict[@"BGColor"] integerValue], 1.0);
+   // self.backgroundColor = BGCOLOR;
     self.keyboardDismissMode = UIScrollViewKeyboardDismissModeNone;
     self.alwaysBounceVertical = YES;
     self.bounces = YES;
