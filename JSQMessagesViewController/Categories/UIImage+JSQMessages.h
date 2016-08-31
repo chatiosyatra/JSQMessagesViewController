@@ -99,4 +99,17 @@
  */
 + (UIImage *)yt_system_bubble;
 
+/**
+ *   @return The yatra chat  back button image
+ */
++ (UIImage *)yt_back_image;
+
+/**
+ *   @return The yatra chat call connect image
+ */
+
++ (UIImage *)yt_call_connect_image;
++ (UIImage *)jsq_bubbleImageFromBundleWithName:(NSString *)name;
+
+
 @end

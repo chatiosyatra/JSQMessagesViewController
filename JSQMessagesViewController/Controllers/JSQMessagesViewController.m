@@ -43,6 +43,7 @@
 #import "UIColor+JSQMessages.h"
 #import "UIDevice+JSQMessages.h"
 #import "NSBundle+JSQMessages.h"
+#import "UIImage+JSQMessages.h"
 
 
 #define ResourcePath(path)[[NSBundle mainBundle] pathForResource:path ofType:nil]
@@ -597,19 +598,19 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
         
         
         if ([messageItem queuedForSending]) {
-             [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"Clock-48.png"));
+             [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"Clock-48"];
         }
         else
         {
-            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"white_single-2.png"));
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"white_single-2"];
         }
         
         if (messageItem.isDelivered==YES) {
-            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"white_double-2.png"));
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"white_double-2"];
         }
         if (messageItem.isDisplayed==YES)
         {
-            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=ImageWithPath(ResourcePath(@"lime_double-2.png"));
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"lime_double-2"];
         }
         
         
