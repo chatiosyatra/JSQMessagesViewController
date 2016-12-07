@@ -60,7 +60,7 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
     self.leftHorizontalSpacingConstraint.constant = kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
     self.rightHorizontalSpacingConstraint.constant = kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
-
+    
     self.backgroundColor = [UIColor clearColor];
 }
 
@@ -80,6 +80,8 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
     [super setBackgroundColor:backgroundColor];
     self.leftBarButtonContainerView.backgroundColor = backgroundColor;
     self.rightBarButtonContainerView.backgroundColor = backgroundColor;
+    
+    
 }
 
 - (void)setLeftBarButtonItem:(UIButton *)leftBarButtonItem

@@ -56,9 +56,13 @@ alpha:alphaValue])
 +(UIColor*)jsq_systemmessageTextColor;
 
 +(UIColor*)jsq_dateLabelBGColor;
++(UIColor*)jsq_dateLabelTextColor;
 +(UIColor*)jsq_recievedMessageBGColor;
 
 +(UIColor*)jsq_sendMessageBGColor;
+
++(UIColor*)jsq_TimeStampTextColorOutgoing;
++(UIColor*)jsq_TimeStampTextColorIncoming;
 
 #pragma mark - Utilities
 

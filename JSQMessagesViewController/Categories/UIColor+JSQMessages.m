@@ -57,8 +57,53 @@ alpha:alphaValue])
 }
 +(UIColor*)jsq_dateLabelBGColor
 {
-    return [UIColor colorWithRed:189.0f/255.0f green:233.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+  //  return [UIColor colorWithRed:189.0f/255.0f green:233.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chat_plist" ofType:@"plist"];
+    
+    NSDictionary *myPropertiesDict = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
+    PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
+    return UIColorFromRGBA([PropertiesDict[@"DatePlaceholder"] integerValue], 1.0);
+
 }
++(UIColor*)jsq_dateLabelTextColor
+{
+    //  return [UIColor colorWithRed:189.0f/255.0f green:233.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chat_plist" ofType:@"plist"];
+    
+    NSDictionary *myPropertiesDict = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
+    PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
+    return UIColorFromRGBA([PropertiesDict[@"CHAT_DATE_TEXTCOLOR"] integerValue], 1.0);
+    
+}
+
+
++(UIColor*)jsq_TimeStampTextColorOutgoing
+{
+    //  return [UIColor colorWithRed:189.0f/255.0f green:233.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chat_plist" ofType:@"plist"];
+    
+    NSDictionary *myPropertiesDict = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
+    PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
+    return UIColorFromRGBA([PropertiesDict[@"CHAT_SEND_TIME_COLOR"] integerValue], 1.0);
+    
+}
+
+
++(UIColor*)jsq_TimeStampTextColorIncoming
+{
+    //  return [UIColor colorWithRed:189.0f/255.0f green:233.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"chat_plist" ofType:@"plist"];
+    
+    NSDictionary *myPropertiesDict = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
+    PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
+    return UIColorFromRGBA([PropertiesDict[@"CHAT_REC_TIME_COLOR"] integerValue], 1.0);
+    
+}
+
 
 + (UIColor *)jsq_messageBubbleRedColor
 {

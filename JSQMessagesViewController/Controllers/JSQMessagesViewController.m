@@ -110,6 +110,10 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 
 @implementation JSQMessagesViewController
+{
+    UIColor *sentColor;
+    UIColor *readColor;
+}
 
 #pragma mark - Class methods
 
@@ -134,6 +138,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSDictionary *PropertiesDict =[[NSDictionary alloc]init];
     PropertiesDict=[myPropertiesDict objectForKey:@"ColorCodeScheme"];
     self.view.backgroundColor = UIColorFromRGBA([PropertiesDict[@"BGColor"] integerValue], 1.0);
+    sentColor = UIColorFromRGBA([PropertiesDict[@"CHAT_RECEIPT_SENT_DELIVERED"] integerValue], 1.0);
+    readColor = UIColorFromRGBA([PropertiesDict[@"CHAT_RECEIPT_READ"] integerValue], 1.0);
    // self.view.backgroundColor = BGCOLOR;
 
     self.jsq_isObserving = NO;
@@ -536,7 +542,10 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
             cell.textView.attributedText = [[NSAttributedString alloc] initWithString:[messageItem text]
                                                                            attributes:@{ NSFontAttributeName : collectionView.collectionViewLayout.messageBubbleFont }];
         }
-
+        if(cell.textView.text==nil)
+        {
+            NSLog(@"bull");
+        }
         NSParameterAssert(cell.textView.text != nil);
 
         id<JSQMessageBubbleImageDataSource> bubbleImageDataSource = [collectionView.dataSource collectionView:collectionView messageBubbleImageDataForItemAtIndexPath:indexPath];
@@ -597,20 +606,31 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
         
         
         
+        
+        
+        
         if ([messageItem queuedForSending]) {
-            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"Clock-48"];
+            UIImage *clock=[UIImage jsq_bubbleImageFromBundleWithName:@"Clock-48"];
+            clock=[clock jsq_imageMaskedWithColor:sentColor];
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=clock;
         }
         else
         {
-            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"white_single-2"];
-        }
+            UIImage *singletick=[UIImage jsq_bubbleImageFromBundleWithName:@"white_single-2"];
+            singletick=[singletick jsq_imageMaskedWithColor:sentColor];
+
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=  singletick;      }
         
         if (messageItem.isDelivered==YES) {
-            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"white_double-2"];
+            UIImage *doubletick=[UIImage jsq_bubbleImageFromBundleWithName:@"white_double-2"];
+            doubletick=[doubletick jsq_imageMaskedWithColor:sentColor];
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=doubletick;
         }
         if (messageItem.isDisplayed==YES)
         {
-            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"lime_double-2"];
+            UIImage *limeTick=[UIImage jsq_bubbleImageFromBundleWithName:@"white_double-2"];
+            limeTick=[limeTick jsq_imageMaskedWithColor:readColor];
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=limeTick;
         }
         
         

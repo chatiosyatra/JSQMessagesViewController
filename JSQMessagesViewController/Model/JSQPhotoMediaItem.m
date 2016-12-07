@@ -96,13 +96,13 @@
         
         if(!self.appliesMediaViewMaskAsOutgoing)
         {
-        view.backgroundColor=[UIColor jsq_messageBubbleLightGrayColor];
+        view.backgroundColor=[UIColor jsq_recievedMessageBGColor];
            
             imageView.frame = CGRectMake(20.0f, 18.0f, size.width-35, size.height-40);
         }
         else
         {
-           view.backgroundColor=[UIColor jsq_messageBubbleLightBlueColor];
+           view.backgroundColor=[UIColor jsq_sendMessageBGColor];
              imageView.frame = CGRectMake(15.0f, 18.0f, size.width-35, size.height-40);
             
         }

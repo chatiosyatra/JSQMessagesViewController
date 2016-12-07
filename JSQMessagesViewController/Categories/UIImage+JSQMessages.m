@@ -128,13 +128,13 @@
 }
 + (UIImage *)yt_single_bubble
 {
-    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_blue (1)"];}
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_blue (1)"];//img_chat_bubble_outgoing_single.9
+}
 
 + (UIImage *)yt_back_image
 {
-    
-    return [UIImage jsq_bubbleImageFromBundleWithName:@"Previous"];
-}
+    NSLog(@"yt_back_image");
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"Previous"];}
 
 + (UIImage *)yt_call_connect_image
 {
@@ -142,6 +142,23 @@
     return [UIImage jsq_bubbleImageFromBundleWithName:@"ic_call_white"];
 }
 
++ (UIImage *)yt_menu_image
+{
+    NSLog(@"yt_menu_image");
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"menu_filled"];
+}
+
++ (UIImage *)yt_send_icon
+{
+   
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"ic_send_blue"];
+}
+
++ (UIImage *)yt_clip_icon
+{
+    
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"ic_attach_file_blue"];
+}
 
 
 

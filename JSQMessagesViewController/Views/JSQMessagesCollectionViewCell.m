@@ -135,6 +135,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
     self.tapGestureRecognizer = tap;
+    
+    
+    
+    
 }
 
 - (void)dealloc
@@ -332,53 +336,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     
     [self.messageBubbleContainerView bringSubviewToFront:_cellTimeLabel];
     
-//    [self.messageBubbleContainerView addSubview:self.cellTimeLabel];
-//    [self.messageBubbleContainerView addSubview:self.messageReceiptImageView];
-//    
-//    [self.messageBubbleContainerView bringSubviewToFront:self.cellTimeLabel];
-//    
-//    [self.cellTimeLabel removeConstraints:self.cellTimeLabel.constraints];
-//    
-//   
-//    
-//    [self.messageBubbleContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.cellTimeLabel
-//                                                          attribute:NSLayoutAttributeBottom
-//                                                          relatedBy:NSLayoutRelationLessThanOrEqual
-//                                                             toItem:mediaView
-//                                                          attribute:NSLayoutAttributeBottom
-//                                                         multiplier:1.0
-//                                                           constant:-8.0]];
-//    
-//    [self.messageBubbleContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.cellTimeLabel
-//                                                          attribute:NSLayoutAttributeTrailing
-//                                                          relatedBy:NSLayoutRelationLessThanOrEqual
-//                                                             toItem:mediaView
-//                                                          attribute:NSLayoutAttributeTrailing
-//                                                         multiplier:1.0
-//                                                           constant:-30.0]];
-//    
-//    
-//    if (self.messageReceiptImageView!=nil && mediaView !=nil) {
-//        [self.messageBubbleContainerView bringSubviewToFront:self.messageReceiptImageView];
-//         [self.messageReceiptImageView removeConstraints:self.messageReceiptImageView.constraints];
-//        [self.messageBubbleContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.messageReceiptImageView
-//                                                                                    attribute:NSLayoutAttributeBottom
-//                                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
-//                                                                                       toItem:mediaView
-//                                                                                    attribute:NSLayoutAttributeBottom
-//                                                                                   multiplier:1.0
-//                                                                                     constant:-8.0]];
-//        
-//        [self.messageBubbleContainerView addConstraint:[NSLayoutConstraint constraintWithItem:self.messageReceiptImageView
-//                                                                                    attribute:NSLayoutAttributeTrailing
-//                                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
-//                                                                                       toItem:mediaView
-//                                                                                    attribute:NSLayoutAttributeTrailing
-//                                                                                   multiplier:1.0
-//                                                                                     constant:-2.0]];
-//    }
-//    
-    
+
 
     //  because of cell re-use (and caching media views, if using built-in library media item)
     //  we may have dequeued a cell with a media view and add this one on top

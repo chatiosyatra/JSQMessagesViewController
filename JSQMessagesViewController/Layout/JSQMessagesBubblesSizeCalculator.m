@@ -100,6 +100,9 @@
     
     
     NSValue *cachedSize = [self.cache objectForKey:@([messageData messageHash])];
+    
+  
+    
     if (cachedSize != nil) {
         return [cachedSize CGSizeValue];
     }

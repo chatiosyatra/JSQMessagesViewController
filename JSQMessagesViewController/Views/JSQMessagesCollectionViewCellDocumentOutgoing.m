@@ -17,7 +17,7 @@
 //
 
 #import "JSQMessagesCollectionViewCellDocumentOutgoing.h"
-
+#import "UIImage+JSQMessages.h"
 @interface JSQMessagesCollectionViewCellDocumentOutgoing ()
 @end
 @implementation JSQMessagesCollectionViewCellDocumentOutgoing
@@ -29,7 +29,7 @@
     [super awakeFromNib];
     self.messageBubbleTopLabel.textAlignment = NSTextAlignmentRight;
     self.cellBottomLabel.textAlignment = NSTextAlignmentRight;
-    
+    self.documentIconView.image=[UIImage jsq_bubbleImageFromBundleWithName:@"ic_attached_file"];
     }
 
 
