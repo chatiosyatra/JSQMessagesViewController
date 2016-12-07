@@ -111,5 +111,4 @@
 + (UIImage *)yt_call_connect_image;
 + (UIImage *)jsq_bubbleImageFromBundleWithName:(NSString *)name;
 
-
 @end

@@ -536,10 +536,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
             cell.textView.attributedText = [[NSAttributedString alloc] initWithString:[messageItem text]
                                                                            attributes:@{ NSFontAttributeName : collectionView.collectionViewLayout.messageBubbleFont }];
         }
-        if(cell.textView.text==nil)
-        {
-            NSLog(@"bull");
-        }
+
         NSParameterAssert(cell.textView.text != nil);
 
         id<JSQMessageBubbleImageDataSource> bubbleImageDataSource = [collectionView.dataSource collectionView:collectionView messageBubbleImageDataForItemAtIndexPath:indexPath];
@@ -601,7 +598,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
         
         
         if ([messageItem queuedForSending]) {
-             [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"Clock-48"];
+            [(JSQMessagesCollectionViewCell*)cell messageReceiptImageView].image=[UIImage jsq_bubbleImageFromBundleWithName:@"Clock-48"];
         }
         else
         {

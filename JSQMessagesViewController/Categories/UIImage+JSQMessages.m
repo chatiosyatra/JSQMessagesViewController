@@ -128,13 +128,13 @@
 }
 + (UIImage *)yt_single_bubble
 {
-    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_blue (1)"];//img_chat_bubble_outgoing_single.9
-}
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_blue (1)"];}
 
 + (UIImage *)yt_back_image
 {
-    NSLog(@"yt_back_image");
-    return [UIImage jsq_bubbleImageFromBundleWithName:@"Previous"];}
+    
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"Previous"];
+}
 
 + (UIImage *)yt_call_connect_image
 {
